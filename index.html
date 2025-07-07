@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookish Buzz | The House on Buzzards Bay Review</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #f39c12;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --accent: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--accent);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .book-hero {
+            background-color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .book-hero-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .book-cover {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .book-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .book-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .book-author {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .buzz-meter {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .buzz-label {
+            margin-right: 1rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .buzz-bars {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .buzz-bar {
+            width: 20px;
+            height: 30px;
+            background-color: #ddd;
+            transition: all 0.3s;
+        }
+        
+        .buzz-bar.active {
+            background-color: var(--secondary);
+        }
+        
+        .review-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .review-content {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .review-text {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .review-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .author-section {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .author-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .author-bio {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .author-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .recommendations {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .book-card {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-card img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .book-card p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+            color: #bbb;
+        }
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .book-hero-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .book-cover {
+                margin-bottom: 1.5rem;
+            }
+            
+            .author-bio {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">Bookish<span>Buzz</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    <li><a href="#">Genres</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="book-hero">
+        <div class="container book-hero-container">
+            <div class="book-cover">
+                <img src="https://via.placeholder.com/300x450?text=The+House+on+Buzzards+Bay" alt="The House on Buzzards Bay Cover">
+            </div>
+            <div class="book-info">
+                <h1 class="book-title">The House on Buzzards Bay</h1>
+                <p class="book-author">by Dwyer Murphy</p>
+                
+                <div class="buzz-meter">
+                    <span class="buzz-label">Buzz Meter:</span>
+                    <div class="buzz-bars">
+                        <div class="buzz-bar active"></div>
+                        <div class="buzz-bar active"></div>
+                        <div class="buzz-bar active"></div>
+                        <div class="buzz-bar active"></div>
+                        <div class="buzz-bar"></div>
+                    </div>
+                </div>
+                
+                <p>A gripping mystery that blends coastal gothic atmosphere with modern noir sensibilities. Murphy delivers a haunting tale of family secrets and the ghosts that won't stay buried.</p>
+                
+                <div class="review-meta">
+                    <span><i class="fas fa-calendar-alt"></i> Reviewed on June 15, 2023</span>
+                    <span><i class="fas fa-user"></i> By Sarah Johnson</span>
+                    <span><i class="fas fa-tag"></i> Mystery, Gothic</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="review-content">
+        <div class="container">
+            <div class="review-text">
+                <p>Dwyer Murphy's "The House on Buzzards Bay" is a masterclass in atmospheric storytelling, weaving together elements of classic gothic fiction with a sharp, contemporary edge. The novel opens with attorney Caroline Byrne returning to her family's crumbling estate on the Massachusetts coast after receiving a cryptic letter from her estranged uncle.</p>
+                
+                <p>Murphy's prose is both lyrical and precise, perfectly capturing the eerie beauty of the coastal setting. The house itself emerges as a central character - its creaking floorboards, hidden passages, and ocean views that seem to watch as much as they are watched. The author builds tension slowly but relentlessly, layering family secrets with each chapter.</p>
+                
+                <p>What sets this mystery apart is Murphy's attention to character development. Caroline is no stock detective - she's a complex protagonist wrestling with her own demons even as she uncovers her family's dark history. The supporting cast, from the enigmatic groundskeeper to the town historian with her own agenda, are equally well-drawn.</p>
+                
+                <p>The plot takes several unexpected turns, though some readers might find the final revelation slightly rushed. Nevertheless, the journey to that conclusion is so richly atmospheric and psychologically compelling that most will forgive this minor flaw. Murphy's background as a lawyer brings authenticity to the legal subplot that runs through the narrative.</p>
+                
+                <p>"The House on Buzzards Bay" will appeal to fans of both classic gothic fiction and modern literary mysteries. It's a perfect read for stormy nights, though you might find yourself glancing over your shoulder more than usual afterward.</p>
+            </div>
+            
+            <div class="college-perspective">
+                <h3>College Student Perspective</h3>
+                <p>This novel offers excellent material for literature students examining modern gothic tropes or the evolution of mystery fiction. The layered narrative structure and unreliable narrator would make for compelling classroom discussion. Psychology students might also analyze the family dynamics and trauma themes throughout the book.</p>
+            </div>
+        </div>
+    </section>
+    <section class="author-section">
+        <div class="container">
+            <h2 class="author-title">About the Author</h2>
+            <div class="author-bio">
+                <img src="https://via.placeholder.com/100x100?text=Dwyer+Murphy" alt="Dwyer Murphy" class="author-photo">
+                <div>
+                    <p><strong>Dwyer Murphy</strong> is a former attorney and editor at the Paris Review. His work has appeared in numerous literary journals, and "The House on Buzzards Bay" is his second novel. Murphy's writing is known for its atmospheric settings and complex character studies. He currently lives in Brooklyn but spends summers on Cape Cod, the inspiration for much of his coastal fiction.</p>
+                    <p>Murphy will be speaking at several college campuses this fall as part of the "New Voices in Mystery Fiction" tour.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recommendations">
+        <div class="container">
+            <h2 class="section-title">If You Liked This, Try These</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <img src="/Users/ankitchahar/Desktop/book review/4a09f0d8-d551-43bf-9745-6e91b45cfc19.jpeg" alt="The Lighthouse">
+                    <h3>The Lighthouse</h3>
+                    <p>P.D. James</p>
+                </div>
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/150x225?text=The+Guest+List" alt="The Guest List">
+                    <h3>The Guest List</h3>
+                    <p>Lucy Foley</p>
+                </div>
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/150x225?text=The+Sanatorium" alt="The Sanatorium">
+                    <h3>The Sanatorium</h3>
+                    <p>Sarah Pearse</p>
+                </div>
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/150x225?text=The+Night+Swim" alt="The Night Swim">
+                    <h3>The Night Swim</h3>
+                    <p>Megan Goldin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Bookish<span>Buzz</span></div>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Review Policy</a>
+                <a href="#">Privacy</a>
+                <a href="#">For Educators</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-goodreads"></i></a>
+            </div>
+            <p class="copyright">© 2023 BookishBuzz. A college project by [Your Name]. All book cover images are placeholders.</p>
+        </div>
+    </footer>
+
+    <script>
+        const buzzBars = document.querySelectorAll('.buzz-bar');
+        
+        buzzBars.forEach((bar, index) => {
+            bar.addEventListener('mouseover', () => {
+                buzzBars.forEach((b, i) => {
+                    if (i <= index) {
+                        b.style.backgroundColor = '#f39c12';
+                        b.style.transform = 'scaleY(1.1)';
+                    }
+                });
+            });
+            
+            bar.addEventListener('mouseout', () => {
+                buzzBars.forEach((b, i) => {
+                    if (i >= 4) { 
+                        b.style.backgroundColor = i < 4 ? '#f39c12' : '#ddd';
+                        b.style.transform = 'scaleY(1)';
+                    }
+                });
+            });
+            bar.addEventListener('click', () => {
+                buzzBars.forEach((b, i) => {
+                    if (i <= index) {
+                        b.classList.add('active');
+                    } else {
+                        b.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookCover = document.querySelector('.book-cover');
+            bookCover.style.opacity = '0';
+            bookCover.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                bookCover.style.transition = 'opacity 0.5s, transform 0.5s';
+                bookCover.style.opacity = '1';
+                bookCover.style.transform = 'translateY(0)';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
